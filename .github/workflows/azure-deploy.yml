@@ -1,0 +1,47 @@
+name: Build and Deploy to Azure
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+env:
+  REGISTRY_NAME: malariaacrregistry
+  APP_NAME: malaria-detector
+  RESOURCE_GROUP: malaria-rg
+  LOCATION: westeurope
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Azure login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - name: Create ACR
+      run: |
+        az acr create --resource-group ${{ env.RESOURCE_GROUP }} \
+          --name ${{ env.REGISTRY_NAME }} --sku Basic \
+          --admin-enabled true
+    
+    - name: Build and push image to ACR
+      run: |
+        az acr build --registry ${{ env.REGISTRY_NAME }} \
+          --image ${{ env.APP_NAME }}:${{ github.sha }} .
+    
+    - name: Create Container App
+      run: |
+        az containerapp create \
+          --name ${{ env.APP_NAME }} \
+          --resource-group ${{ env.RESOURCE_GROUP }} \
+          --image ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:${{ github.sha }} \
+          --target-port 5000 \
+          --ingress external \
+          --registry-server ${{ env.REGISTRY_NAME }}.azurecr.io \
+          --registry-username ${{ env.REGISTRY_NAME }} \
+          --registry-password ${{ secrets.REGISTRY_PASSWORD }} 

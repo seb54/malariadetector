@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+<!-- Ajouter dans le head pour les animations -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+<!-- Background decorations dans un conteneur fixe -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+    <div class="absolute -top-20 -right-20 w-72 h-72 bg-gradient-to-br from-emerald-200 to-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+    <div class="absolute -bottom-20 -left-20 w-72 h-72 bg-gradient-to-br from-purple-200 to-emerald-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+    <!-- Ajout de motifs subtils -->
+    <div class="absolute inset-0 bg-[url('/static/images/grid.svg')] opacity-[0.02]"></div>
+</div>
+
+<!-- Contenu principal -->
+<div class="relative max-w-4xl mx-auto min-h-screen py-12">
+    <!-- Hero Section amélioré -->
+    <div class="relative text-center mb-16" data-aos="fade-up">
+        <div class="flex justify-center gap-4 mb-6">
+            <span class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-emerald-50 to-blue-50 text-emerald-800 text-sm font-medium shadow-sm border border-emerald-100/50 hover:shadow-md transition-shadow duration-300">
+                <span class="mr-2">🔬</span>Intelligence Artificielle pour la Santé
+            </span>
+        </div>
+        
+        <h1 class="text-6xl font-bold text-gray-900 mb-6">
+            Détection de la Malaria<br/>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 animate-gradient">
+                par IA
+            </span>
+        </h1>
+        
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
+            Analysez rapidement et précisément vos images microscopiques pour détecter la présence de parasites du paludisme.
+        </p>
+    </div>
+
+    <!-- Upload Zone améliorée -->
+    <div class="glass-card p-8 rounded-xl hover-lift group relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+        <div class="absolute inset-0 bg-gradient-to-br from-emerald-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        
+        <div class="relative">
+            <div id="dropZone" class="border-2 border-dashed border-gray-300 rounded-xl p-12 text-center transition-all duration-300 hover:border-emerald-500 bg-white group">
+                <input type="file" id="fileInput" class="hidden" accept="image/*">
+                <div class="space-y-6">
+                    <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-emerald-50 to-blue-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-lg">
+                        <svg class="w-12 h-12 text-emerald-600 transform group-hover:rotate-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-2xl font-medium text-gray-700">Déposez votre image ici</p>
+                        <p class="text-gray-500">ou</p>
+                        <button onclick="document.getElementById('fileInput').click()" 
+                                class="px-8 py-4 text-sm font-medium text-white bg-gradient-to-r from-emerald-500 to-blue-500 rounded-xl hover:from-emerald-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 shadow-lg shadow-emerald-500/30 transition-all duration-300 hover:scale-105">
+                            Sélectionnez un fichier
+                        </button>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-6">
+                        Formats acceptés: PNG, JPG, JPEG
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    AOS.init({
+        duration: 800,
+        easing: 'ease-out-cubic',
+        once: true
+    });
+</script>
+{% endblock %} 

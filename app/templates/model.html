@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+
+{% block title %}Notre Modèle{% endblock %}
+
+{% block content %}
+<!-- Background avec motif subtil -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute -top-20 -right-20 w-96 h-96 bg-gradient-to-br from-emerald-200 to-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+    <div class="absolute top-1/3 left-1/4 w-72 h-72 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-60 animate-blob animation-delay-4000"></div>
+    <div class="absolute -bottom-20 -left-20 w-72 h-72 bg-gradient-to-br from-purple-200 to-emerald-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+    <div class="absolute inset-0 bg-[url('/static/images/grid.svg')] opacity-[0.02]"></div>
+</div>
+
+<!-- Contenu principal -->
+<div class="relative max-w-5xl mx-auto py-16 px-4">
+    <!-- En-tête -->
+    <div class="text-center mb-16" data-aos="fade-up">
+        <h1 class="text-5xl font-bold text-gray-900 mb-6">
+            Le Modèle d'Intelligence Artificielle
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Découvrez comment ce modèle de deep learning a été conçu et entraîné pour détecter la malaria avec une précision de 94%.
+        </p>
+    </div>
+
+    <!-- Architecture du modèle -->
+    <div class="glass-card p-8 rounded-2xl mb-12" data-aos="fade-up">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Architecture du Modèle</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+                <p class="text-gray-600 mb-4">
+                    Notre modèle utilise une architecture CNN (Convolutional Neural Network) optimisée pour la détection de parasites de la malaria dans les images microscopiques.
+                </p>
+                <ul class="space-y-3 text-gray-600">
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-emerald-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        3 couches de convolution avec BatchNormalization
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-emerald-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        MaxPooling pour la réduction de dimension
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-emerald-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Dropout pour prévenir le surapprentissage
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-emerald-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Dense layers avec activation ReLU
+                    </li>
+                </ul>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+                <pre class="text-sm text-gray-700 overflow-x-auto"><code>model = tf.keras.Sequential([
+    Conv2D(32, (3, 3), activation='relu'),
+    BatchNormalization(),
+    MaxPooling2D((2, 2)),
+    Dropout(0.25),
+
+    Conv2D(64, (3, 3), activation='relu'),
+    BatchNormalization(),
+    MaxPooling2D((2, 2)),
+    Dropout(0.25),
+
+    Conv2D(128, (3, 3), activation='relu'),
+    BatchNormalization(),
+    MaxPooling2D((2, 2)),
+    Dropout(0.25),
+
+    Dense(256, activation='relu'),
+    BatchNormalization(),
+    Dropout(0.5),
+    Dense(2, activation='softmax')
+])</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Métriques d'entraînement -->
+    <div class="glass-card p-8 rounded-2xl mb-12" data-aos="fade-up">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Performances du Modèle</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <div class="text-center p-6 bg-white rounded-xl shadow-sm">
+                <div class="text-4xl font-bold text-emerald-600 mb-2">94%</div>
+                <div class="text-gray-600">Précision globale</div>
+            </div>
+            <div class="text-center p-6 bg-white rounded-xl shadow-sm">
+                <div class="text-4xl font-bold text-blue-600 mb-2">93.8%</div>
+                <div class="text-gray-600">Sensibilité</div>
+            </div>
+            <div class="text-center p-6 bg-white rounded-xl shadow-sm">
+                <div class="text-4xl font-bold text-purple-600 mb-2">94.2%</div>
+                <div class="text-gray-600">Spécificité</div>
+            </div>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+            <img src="{{ url_for('static', filename='images/training_metrics.png') }}" alt="Métriques d'entraînement" class="w-full rounded-lg">
+        </div>
+    </div>
+
+    <!-- Après la section des performances du modèle -->
+    <div class="glass-card p-8 rounded-2xl mb-12" data-aos="fade-up">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Métriques de Performance</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <!-- Sensibilité -->
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-semibold text-gray-900">Sensibilité</h3>
+                    <span class="text-3xl font-bold text-blue-600">93.8%</span>
+                </div>
+                <p class="text-gray-600">
+                    La sensibilité mesure la capacité du modèle à identifier correctement les cas positifs de malaria. 
+                    Sur 100 images contenant réellement des parasites, le modèle en détecte correctement environ 94.
+                </p>
+                <div class="mt-4 p-4 bg-blue-50 rounded-lg">
+                    <p class="text-sm text-blue-700">
+                        Formule : Vrais Positifs / (Vrais Positifs + Faux Négatifs)
+                    </p>
+                </div>
+            </div>
+
+            <!-- Spécificité -->
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-semibold text-gray-900">Spécificité</h3>
+                    <span class="text-3xl font-bold text-purple-600">94.2%</span>
+                </div>
+                <p class="text-gray-600">
+                    La spécificité mesure la capacité du modèle à identifier correctement les cas négatifs (absence de malaria). 
+                    Sur 100 images sans parasite, le modèle en identifie correctement environ 94.
+                </p>
+                <div class="mt-4 p-4 bg-purple-50 rounded-lg">
+                    <p class="text-sm text-purple-700">
+                        Formule : Vrais Négatifs / (Vrais Négatifs + Faux Positifs)
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Importance des métriques -->
+        <div class="bg-gray-50 p-6 rounded-xl">
+            <h4 class="text-lg font-semibold text-gray-900 mb-4">Pourquoi ces métriques sont importantes ?</h4>
+            <ul class="space-y-3 text-gray-600">
+                <li class="flex items-start">
+                    <svg class="w-6 h-6 text-emerald-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span>Une <strong>haute sensibilité</strong> est cruciale pour ne pas manquer de vrais cas de malaria, ce qui pourrait avoir des conséquences graves pour les patients.</span>
+                </li>
+                <li class="flex items-start">
+                    <svg class="w-6 h-6 text-emerald-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span>Une <strong>haute spécificité</strong> évite les faux diagnostics positifs, réduisant ainsi les traitements inutiles et l'anxiété des patients.</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Dataset -->
+    <div class="glass-card p-8 rounded-2xl mb-12" data-aos="fade-up">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Dataset d'Entraînement</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+                <p class="text-gray-600 mb-6">
+                    Le modèle a été entraîné sur un dataset équilibré de 27,558 images microscopiques de cellules sanguines.
+                </p>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm">
+                        <span class="text-gray-700">Images parasitées</span>
+                        <span class="font-semibold text-emerald-600">13,779 images</span>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm">
+                        <span class="text-gray-700">Images saines</span>
+                        <span class="font-semibold text-emerald-600">13,779 images</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+                <img src="{{ url_for('static', filename='images/class_distribution.png') }}" alt="Distribution des classes" class="w-full rounded-lg">
+            </div>
+        </div>
+    </div>
+
+    <!-- Prétraitement -->
+    <div class="glass-card p-8 rounded-2xl" data-aos="fade-up">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Prétraitement des Images</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+                <p class="text-gray-600 mb-4">
+                    Chaque image est prétraitée avant d'être analysée par le modèle pour garantir des résultats optimaux.
+                </p>
+                <ul class="space-y-3 text-gray-600">
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-emerald-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Redimensionnement à 128x128 pixels
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-emerald-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Normalisation des valeurs de pixels
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-emerald-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Augmentation de données (rotation, zoom)
+                    </li>
+                </ul>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+                <img src="{{ url_for('static', filename='images/preprocessing.png') }}" alt="Prétraitement des images" class="w-full rounded-lg">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    AOS.init({
+        duration: 800,
+        easing: 'ease-out-cubic',
+        once: true
+    });
+</script>
+{% endblock %} 

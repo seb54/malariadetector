@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détecteur de Malaria - {% block title %}{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen font-['Inter']">
+    <nav class="bg-white shadow sticky top-0 z-50 backdrop-blur-sm bg-white/90">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <img src="{{ url_for('static', filename='images/logo.png') }}" 
+                             alt="Logo" 
+                             class="h-8 w-auto mr-2">
+                    </div>
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="{{ url_for('index') }}" class="text-xl font-bold text-gray-900">
+                            Détecteur de Malaria
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="{{ url_for('index') }}" 
+                       class="text-gray-600 hover:text-emerald-600 transition-colors duration-200 {{ 'text-emerald-600' if request.endpoint == 'index' }}">
+                        Accueil
+                    </a>
+                    <a href="{{ url_for('model') }}" 
+                       class="text-gray-600 hover:text-emerald-600 transition-colors duration-200 {{ 'text-emerald-600' if request.endpoint == 'model' }}">
+                        Modèle
+                    </a>
+                    <a href="{{ url_for('history') }}" 
+                       class="text-gray-600 hover:text-emerald-600 transition-colors duration-200 {{ 'text-emerald-600' if request.endpoint == 'history' }}">
+                        Historique
+                    </a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="menuButton" class="text-gray-600 hover:text-emerald-600 focus:outline-none">
+                        <svg class="h-6 w-6" id="menuIcon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                        <svg class="h-6 w-6 hidden" id="closeIcon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div id="mobileMenu" class="hidden md:hidden">
+                <div class="py-2 space-y-1">
+                    <a href="{{ url_for('index') }}" 
+                       class="block px-4 py-2 text-gray-600 hover:bg-emerald-50 hover:text-emerald-600 transition-colors duration-200 rounded-lg {{ 'text-emerald-600 bg-emerald-50' if request.endpoint == 'index' }}">
+                        Accueil
+                    </a>
+                    <a href="{{ url_for('model') }}" 
+                       class="block px-4 py-2 text-gray-600 hover:bg-emerald-50 hover:text-emerald-600 transition-colors duration-200 rounded-lg {{ 'text-emerald-600 bg-emerald-50' if request.endpoint == 'model' }}">
+                        Le Modèle
+                    </a>
+                    <a href="{{ url_for('history') }}" 
+                       class="block px-4 py-2 text-gray-600 hover:bg-emerald-50 hover:text-emerald-600 transition-colors duration-200 rounded-lg {{ 'text-emerald-600 bg-emerald-50' if request.endpoint == 'history' }}">
+                        Historique
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Modal -->
+    <div id="resultModal" class="hidden fixed inset-0 z-50">
+        <div class="fixed inset-0 bg-black/30 backdrop-blur-sm transition-opacity"></div>
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+                    <div id="modalContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

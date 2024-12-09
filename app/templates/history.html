@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Historique{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto py-12 px-4">
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">Historique des Analyses</h1>
+        <p class="text-lg text-gray-600">Consultez l'ensemble de vos analyses précédentes</p>
+    </div>
+
+    <!-- Filtres -->
+    <div class="flex justify-center gap-4 mb-8">
+        <button class="filter-btn active px-4 py-2 rounded-lg border text-sm font-medium" data-filter="all">
+            Toutes les analyses
+        </button>
+        <button class="filter-btn px-4 py-2 rounded-lg border text-sm font-medium" data-filter="positive">
+            Positifs uniquement
+        </button>
+        <button class="filter-btn px-4 py-2 rounded-lg border text-sm font-medium" data-filter="negative">
+            Négatifs uniquement
+        </button>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8">
+        {% for analysis in analyses %}
+            <div class="analysis-card bg-white rounded-xl border border-gray-200 flex flex-col" 
+                data-result="{{ 'positive' if analysis.is_positive else 'negative' }}"
+                style="display: none;">
+                <div class="aspect-w-1 aspect-h-1 bg-gray-100 flex-shrink-0">
+                    <img src="{{ url_for('serve_uploads', filename=analysis.image_path) }}" 
+                         alt="Image analysée" 
+                         class="object-cover w-full h-full">
+                </div>
+                <div class="p-2 mt-auto">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-medium text-gray-600">Résultat :</span>
+                        {% if analysis.is_positive %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">Positif</span>
+                        {% else %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Négatif</span>
+                        {% endif %}
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-medium text-gray-600">Date :</span>
+                        <span class="text-xs text-gray-500">{{ analysis.date.strftime('%d/%m/%Y') }}</span>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-span-full text-center py-12">
+                <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                </svg>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Aucune analyse trouvée</h3>
+                <p class="text-gray-500">Commencez par analyser une image sur la page d'accueil.</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    <div class="flex justify-center items-center space-x-4">
+        <button id="prevPage" class="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+            Précédent
+        </button>
+        <span id="pageIndicator" class="text-sm text-gray-600"></span>
+        <button id="nextPage" class="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+            Suivant
+        </button>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/history.js') }}"></script>
+{% endblock %}
