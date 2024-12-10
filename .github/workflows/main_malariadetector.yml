@@ -23,14 +23,14 @@ jobs:
       uses: docker/login-action@v2
       with:
         registry: https://mcr.microsoft.com/
-        username: ${{ secrets.AzureAppService_ContainerUsername_c4e553fd1ab14c10bcadde320f5eb140 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_140fedc37731432d9790798cadb4e958 }}
+        username: ${{ secrets.AzureAppService_ContainerUsername_897a691bb8814718830d67401b6c03e1 }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_f6da12e1edab4d8e81f9a9a82c8de906 }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: mcr.microsoft.com/${{ secrets.AzureAppService_ContainerUsername_c4e553fd1ab14c10bcadde320f5eb140 }}/appsvc/staticsite:${{ github.sha }}
+        tags: mcr.microsoft.com/${{ secrets.AzureAppService_ContainerUsername_897a691bb8814718830d67401b6c03e1 }}/appsvc/staticsite:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'malariadetector'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_ba88e8a770c74f4b8bf348221dc9e86b }}
-        images: 'mcr.microsoft.com/${{ secrets.AzureAppService_ContainerUsername_c4e553fd1ab14c10bcadde320f5eb140 }}/appsvc/staticsite:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_31f2da4ee92a4c5b8b5a5f2281481ddb }}
+        images: 'mcr.microsoft.com/${{ secrets.AzureAppService_ContainerUsername_897a691bb8814718830d67401b6c03e1 }}/appsvc/staticsite:${{ github.sha }}'
