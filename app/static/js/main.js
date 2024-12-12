@@ -45,11 +45,16 @@ class FileHandler {
     }
 
     processImage(file) {
-        // Lancer directement l'analyse avec l'image
-        this.analyzeImage(file);
+        // Lire le fichier en base64
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const base64Image = e.target.result;
+            this.analyzeImage(file, base64Image);
+        };
+        reader.readAsDataURL(file);
     }
 
-    async analyzeImage(file) {
+    async analyzeImage(file, base64Image) {
         // Afficher un état de chargement
         this.showLoadingState();
 
@@ -68,7 +73,9 @@ class FileHandler {
                 throw new Error(data.error || 'Une erreur est survenue lors de l\'analyse');
             }
 
-            this.showResult(data);
+            // Passer l'image en base64 aux résultats
+            this.showResult({ ...data, imageData: base64Image });
+
         } catch (error) {
             console.error('Error details:', error);
             this.showError(error.message || 'Une erreur est survenue lors de l\'analyse');
@@ -141,7 +148,7 @@ class FileHandler {
         modalContent.innerHTML = `
             <div class="relative">
                 <div class="relative rounded-t-xl overflow-hidden">
-                    <img src="${result.image_url}" alt="Analysed image" class="w-full h-64 object-cover">
+                    <img src="${result.imageData}" alt="Image analysée" class="w-full h-64 object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                 </div>
                 
@@ -178,13 +185,13 @@ class FileHandler {
                                 </svg>
                                 Fermer
                             </button>
-                            <a href="/history"
+                            <button onclick="location.reload()"
                                 class="inline-flex items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-all duration-200">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                                 </svg>
-                                Voir l'historique
-                            </a>
+                                Nouvelle analyse
+                            </button>
                         </div>
                     </div>
                 </div>
